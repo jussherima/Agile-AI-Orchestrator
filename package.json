@@ -1,0 +1,23 @@
+{
+  "name": "orcl-ai",
+  "version": "1.2.0",
+  "description": "Agent IA agentique pour Claude Code — Automatise le pipeline complet de gestion de projet",
+  "keywords": ["claude-code", "opencode", "ai-agent", "project-management", "orchestrator", "agile"],
+  "author": "jussherima",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jussherima/Agile-AI-Orchestrator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jussherima/Agile-AI-Orchestrator/issues"
+  },
+  "homepage": "https://github.com/jussherima/Agile-AI-Orchestrator#readme",
+  "files": [
+    ".claude/",
+    ".opencode/",
+    "_orcl/",
+    "opencode.json",
+    "AGENTS.md"
+  ]
+}
