@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORCL — Agile AI Orchestrator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a1a;--bg2:#111127;--bg3:#1a1a3e;
+  --primary:#7c3aed;--primary-light:#a78bfa;
+  --cyan:#06b6d4;--cyan-light:#67e8f9;
+  --text:#e2e8f0;--text-dim:#94a3b8;--text-bright:#f8fafc;
+  --glass:rgba(124,58,237,.08);--glass-border:rgba(124,58,237,.2);
+  --radius:16px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+code,pre,.mono{font-family:'JetBrains Mono',monospace}
+a{color:var(--cyan);text-decoration:none;transition:color .2s}
+a:hover{color:var(--cyan-light)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;
+  background:rgba(10,10,26,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:space-between}
+nav .logo{font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,var(--primary-light),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+nav ul{list-style:none;display:flex;gap:1.5rem}
+nav ul a{color:var(--text-dim);font-size:.85rem;font-weight:500;transition:color .2s}
+nav ul a:hover{color:var(--text-bright)}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+/* SECTIONS */
+section{padding:6rem 2rem 4rem;max-width:1100px;margin:0 auto}
+.section-title{font-size:2rem;font-weight:800;margin-bottom:.5rem;background:linear-gradient(135deg,var(--primary-light),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-sub{color:var(--text-dim);margin-bottom:2.5rem;font-size:1.05rem}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding-top:5rem}
+#hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.15),transparent 70%);top:10%;left:50%;transform:translateX(-50%);pointer-events:none}
+#hero h1{font-size:clamp(3rem,8vw,5rem);font-weight:800;background:linear-gradient(135deg,var(--primary-light),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+#hero .tagline{font-size:clamp(1.1rem,2.5vw,1.4rem);color:var(--text-dim);max-width:600px;margin:0 auto 2rem}
+.install-box{background:var(--bg2);border:1px solid var(--glass-border);border-radius:12px;padding:1rem 1.5rem;display:inline-flex;align-items:center;gap:1rem;margin-bottom:2rem;cursor:pointer;transition:border-color .2s}
+.install-box:hover{border-color:var(--primary-light)}
+.install-box code{color:var(--cyan-light);font-size:1rem}
+.install-box .copy-icon{color:var(--text-dim);font-size:.85rem}
+.badges{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center}
+.badge{background:var(--bg3);border:1px solid var(--glass-border);border-radius:20px;padding:.35rem .9rem;font-size:.75rem;color:var(--text-dim);font-weight:500}
+.badge span{color:var(--cyan-light)}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:1.75rem;backdrop-filter:blur(10px);transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--primary-light)}
+.card-icon{font-size:2rem;margin-bottom:.75rem}
+.card h3{font-size:1.15rem;font-weight:700;color:var(--text-bright);margin-bottom:.5rem}
+.card p{color:var(--text-dim);font-size:.9rem;margin-bottom:1rem}
+.card .cmds{display:flex;flex-wrap:wrap;gap:.4rem}
+.card .cmd{background:var(--bg2);border:1px solid rgba(6,182,212,.15);border-radius:6px;padding:.2rem .55rem;font-size:.75rem;color:var(--cyan);font-family:'JetBrains Mono',monospace}
+
+/* CODE BLOCK */
+.code-block{background:var(--bg2);border:1px solid var(--glass-border);border-radius:12px;padding:1.25rem 1.5rem;overflow-x:auto;margin-bottom:1rem}
+.code-block code{color:var(--cyan-light);font-size:.9rem;line-height:1.7}
+.code-comment{color:var(--text-dim)}
+
+/* PIPELINE */
+.pipeline{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;margin:2rem 0}
+.pipe-step{background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:1rem 1.25rem;text-align:center;min-width:120px;transition:transform .2s}
+.pipe-step:hover{transform:scale(1.05)}
+.pipe-step .icon{font-size:1.5rem;margin-bottom:.3rem}
+.pipe-step .label{font-size:.8rem;font-weight:600;color:var(--text-bright)}
+.pipe-arrow{color:var(--primary-light);font-size:1.5rem;padding:0 .25rem}
+
+/* WORKFLOW SCHEMAS */
+.wf-group{margin-bottom:3rem}
+.wf-group>h3{font-size:1.15rem;font-weight:700;color:var(--primary-light);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem}
+.wf-schema{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding:1rem 0}
+.wf-node{position:relative;display:flex;flex-direction:column;align-items:center;min-width:140px;flex-shrink:0}
+.wf-node-box{background:var(--glass);border:1px solid var(--glass-border);border-radius:14px;padding:1rem 1.1rem;text-align:center;width:100%;backdrop-filter:blur(10px);transition:transform .2s,border-color .2s,box-shadow .2s;cursor:default}
+.wf-node-box:hover{transform:translateY(-3px);border-color:var(--primary-light);box-shadow:0 8px 24px rgba(124,58,237,.15)}
+.wf-node-icon{font-size:1.6rem;margin-bottom:.4rem}
+.wf-node-label{font-size:.82rem;font-weight:600;color:var(--text-bright);margin-bottom:.3rem}
+.wf-node-cmd{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--cyan);opacity:.85;word-break:break-all}
+.wf-node-desc{font-size:.72rem;color:var(--text-dim);margin-top:.3rem;line-height:1.3}
+.wf-connector{display:flex;align-items:center;justify-content:center;min-width:40px;flex-shrink:0;position:relative}
+.wf-connector::before{content:'';position:absolute;top:50%;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--primary),var(--cyan));transform:translateY(-50%)}
+.wf-connector::after{content:'';position:absolute;top:50%;right:0;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:8px solid var(--cyan);transform:translateY(-50%)}
+/* Branch connector */
+.wf-branch{display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:0 .5rem}
+.wf-branch-row{display:flex;align-items:center;gap:0}
+.wf-branch-label{font-size:.7rem;color:var(--text-dim);font-style:italic;margin-bottom:.25rem}
+/* Start/end nodes */
+.wf-node-box.start{border-color:rgba(6,182,212,.4);background:rgba(6,182,212,.08)}
+.wf-node-box.end{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08)}
+.wf-node-box.decision{border-radius:14px;border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.06);transform:rotate(0deg)}
+/* Parallel tracks */
+.wf-parallel{display:flex;flex-direction:column;gap:.5rem;align-items:stretch}
+.wf-parallel .wf-node-box{padding:.7rem .9rem}
+.wf-parallel .wf-node-label{font-size:.78rem}
+/* Responsive */
+@media(max-width:768px){
+  .wf-schema{flex-direction:column;align-items:center}
+  .wf-connector{min-height:30px;min-width:auto;width:2px;flex-direction:column}
+  .wf-connector::before{top:0;bottom:0;left:50%;right:auto;width:2px;height:100%;transform:translateX(-50%)}
+  .wf-connector::after{top:auto;bottom:0;left:50%;right:auto;border-top:8px solid var(--cyan);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:none;transform:translateX(-50%)}
+}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1rem 0}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;color:var(--primary-light);font-weight:600;padding:.75rem 1rem;border-bottom:1px solid var(--glass-border)}
+td{padding:.6rem 1rem;border-bottom:1px solid rgba(124,58,237,.08);color:var(--text-dim)}
+td code{color:var(--cyan);background:var(--bg2);padding:.15rem .4rem;border-radius:4px;font-size:.82rem}
+tr:hover td{color:var(--text)}
+
+/* COMPAT */
+.compat{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:1.5rem}
+.compat-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:2rem;text-align:center}
+.compat-card .name{font-size:1.3rem;font-weight:700;color:var(--text-bright);margin-bottom:.3rem}
+.compat-card .desc{color:var(--text-dim);font-size:.9rem;margin-bottom:1rem}
+.compat-card .tag{display:inline-block;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.2);color:var(--cyan);border-radius:20px;padding:.25rem .75rem;font-size:.78rem;font-weight:500}
+
+/* FOOTER */
+footer{border-top:1px solid var(--glass-border);padding:2.5rem 2rem;text-align:center;color:var(--text-dim);font-size:.85rem}
+footer .links{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1rem}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav ul{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(10,10,26,.95);flex-direction:column;padding:1rem 2rem;gap:1rem;border-bottom:1px solid var(--glass-border)}
+  nav ul.open{display:flex}
+  .hamburger{display:block}
+  .pipeline{flex-direction:column}
+  .pipe-arrow{transform:rotate(90deg)}
+  section{padding:4rem 1.25rem 3rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">ORCL</div>
+  <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu">☰</button>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#pipeline">Pipeline</a></li>
+    <li><a href="#workflows">Workflows</a></li>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#compat">Compatibilité</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <h1>ORCL</h1>
+  <p class="tagline">Agile AI Orchestrator — Le pipeline complet de gestion de projet, propulsé par l'IA.</p>
+  <div class="install-box" onclick="navigator.clipboard.writeText('npx orcl-ai install');this.querySelector('.copy-icon').textContent='✓ Copié'">
+    <code>npx orcl-ai install</code>
+    <span class="copy-icon">📋</span>
+  </div>
+  <div class="badges">
+    <span class="badge">npm <span>v1.3.0</span></span>
+    <span class="badge">License <span>MIT</span></span>
+    <span class="badge">Agents <span>3</span></span>
+    <span class="badge">Workflows <span>16+</span></span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="section-title">Qu'est-ce qu'ORCL ?</h2>
+  <p class="section-sub">Un framework qui transforme votre IDE en agence de développement complète.</p>
+  <p style="color:var(--text-dim);max-width:800px;font-size:1rem;line-height:1.8">
+    ORCL installe dans votre projet <strong style="color:var(--text-bright)">3 agents IA spécialisés</strong> — Product Manager, Developer et UX/UI — qui collaborent pour couvrir le pipeline agile complet : de la validation du cahier des charges au découpage en tickets, du push sur GitHub Projects à l'implémentation guidée avec code review et audit de sécurité. Zéro dépendance, configuration automatique, compatible Claude Code et OpenCode.
+  </p>
+</section>
+
+<!-- INSTALL -->
+<section id="install">
+  <h2 class="section-title">Installation</h2>
+  <p class="section-sub">Une seule commande, zéro configuration.</p>
+
+  <div class="code-block">
+    <code>
+      <span class="code-comment"># Installation initiale</span><br>
+      npx orcl-ai install<br><br>
+      <span class="code-comment"># Mise à jour (préserve vos données)</span><br>
+      npx orcl-ai update<br><br>
+      <span class="code-comment"># Mise à jour forcée (réinstallation complète)</span><br>
+      npx orcl-ai update --force
+    </code>
+  </div>
+  <p style="color:var(--text-dim);font-size:.9rem">Installe les agents, commandes, skills et règles dans <code style="color:var(--cyan)">.claude/</code>, <code style="color:var(--cyan)">.opencode/</code> et <code style="color:var(--cyan)">_orcl/</code>.</p>
+</section>
+
+<!-- AGENTS -->
+<section id="agents">
+  <h2 class="section-title">Les 3 Agents</h2>
+  <p class="section-sub">Chaque agent est un expert dans son domaine, avec sa propre base de connaissances.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>Product Manager</h3>
+      <p>Valide les cahiers des charges, crée les PRD, découpe en tickets et pousse sur GitHub Projects. Applique IEEE 830 / ISO 29148.</p>
+      <div class="cmds">
+        <span class="cmd">/orcl/agents/pm</span>
+        <span class="cmd">/orcl-pm</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Developer</h3>
+      <p>Implémente les tickets, review le code, crée les tests et audite qualité/sécurité/performance. Applique Clean Code, SOLID, OWASP.</p>
+      <div class="cmds">
+        <span class="cmd">/orcl/agents/dev</span>
+        <span class="cmd">/orcl-dev</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎨</div>
+      <h3>UX/UI Specialist</h3>
+      <p>Recherche les standards, crée les livrables UX, audite les designs. Applique Nielsen, WCAG 2.2, Material Design 3.</p>
+      <div class="cmds">
+        <span class="cmd">/orcl/agents/ux</span>
+        <span class="cmd">/orcl-ux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+  <h2 class="section-title">Pipeline</h2>
+  <p class="section-sub">Du cahier des charges au code audité, en passant par GitHub Projects.</p>
+
+  <div class="pipeline">
+    <div class="pipe-step"><div class="icon">📄</div><div class="label">CDC</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="icon">✅</div><div class="label">Validation</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="icon">🎫</div><div class="label">Tickets</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="icon">📊</div><div class="label">GitHub</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="icon">💻</div><div class="label">Code</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="icon">🔒</div><div class="label">Audit</div></div>
+  </div>
+
+  <div class="cards" style="margin-top:2rem">
+    <div class="card">
+      <h3>1. Validation CDC</h3>
+      <p>Analyse du cahier des charges selon IEEE 830. Détecte les ambiguïtés, manques et incohérences. Produit un rapport avec des STOP clairs.</p>
+    </div>
+    <div class="card">
+      <h3>2. Découpage en tickets</h3>
+      <p>Décompose le CDC en thèmes → epics → user stories INVEST. Découpage vertical end-to-end, chaque ticket traverse toutes les couches.</p>
+    </div>
+    <div class="card">
+      <h3>3. Push GitHub Projects</h3>
+      <p>Crée le repo, configure le board Kanban, pousse les tickets avec labels, priorités, story points et itérations.</p>
+    </div>
+    <div class="card">
+      <h3>4. Implémentation & Audit</h3>
+      <p>Implémente ticket par ticket avec TDD, code review SOLID et audit sécurité OWASP. Couverture de tests ≥ 80%.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOWS -->
+<section id="workflows">
+  <h2 class="section-title">Workflows</h2>
+  <p class="section-sub">16+ workflows spécialisés, visualisés en schémas de flux.</p>
+
+  <!-- PM WORKFLOW -->
+  <div class="wf-group">
+    <h3>📋 Product Management — Pipeline complet</h3>
+    <div class="wf-schema">
+      <div class="wf-node">
+        <div class="wf-node-box start">
+          <div class="wf-node-icon">🏗️</div>
+          <div class="wf-node-label">Init GitHub</div>
+          <div class="wf-node-cmd">/orcl/github/init-project</div>
+          <div class="wf-node-desc">Créer repo + board Kanban</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box">
+          <div class="wf-node-icon">📄</div>
+          <div class="wf-node-label">Valider CDC</div>
+          <div class="wf-node-cmd">/orcl/workflow/validate-cdc</div>
+          <div class="wf-node-desc">IEEE 830 · Détection ambiguïtés</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box">
+          <div class="wf-node-icon">✂️</div>
+          <div class="wf-node-label">Créer tickets</div>
+          <div class="wf-node-cmd">/orcl/workflow/create-tickets</div>
+          <div class="wf-node-desc">Thèmes → Epics → Stories</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box decision">
+          <div class="wf-node-icon">✅</div>
+          <div class="wf-node-label">Valider tickets</div>
+          <div class="wf-node-cmd">/orcl/workflow/validate-tickets</div>
+          <div class="wf-node-desc">INVEST · Qualité · Scope</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box end">
+          <div class="wf-node-icon">📊</div>
+          <div class="wf-node-label">Push Kanban</div>
+          <div class="wf-node-cmd">/orcl/workflow/push-kanban</div>
+          <div class="wf-node-desc">GitHub Projects · Labels · Sprint</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEV WORKFLOW -->
+  <div class="wf-group">
+    <h3>⚡ Development — Cycle d'implémentation</h3>
+
+    <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:1rem;font-style:italic">Préparation — Recherche avant de coder</p>
+    <div class="wf-schema" style="margin-bottom:2rem">
+      <div class="wf-node">
+        <div class="wf-node-box start">
+          <div class="wf-node-icon">🔍</div>
+          <div class="wf-node-label">Recherche stack</div>
+          <div class="wf-node-cmd">/orcl/dev/recherche-stack</div>
+          <div class="wf-node-desc">Best practices · Packages</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box">
+          <div class="wf-node-icon">🏛️</div>
+          <div class="wf-node-label">Architecture</div>
+          <div class="wf-node-cmd">/orcl/dev/recherche-architecture</div>
+          <div class="wf-node-desc">Clean Archi · Hexagonal</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:1rem;font-style:italic">Implémentation — Boucle par ticket</p>
+    <div class="wf-schema" style="margin-bottom:2rem">
+      <div class="wf-node">
+        <div class="wf-node-box start">
+          <div class="wf-node-icon">🎫</div>
+          <div class="wf-node-label">Implémenter</div>
+          <div class="wf-node-cmd">/orcl/dev/implement-ticket</div>
+          <div class="wf-node-desc">Code ticket par ticket</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box">
+          <div class="wf-node-icon">🧪</div>
+          <div class="wf-node-label">Créer tests</div>
+          <div class="wf-node-cmd">/orcl/dev/create-tests</div>
+          <div class="wf-node-desc">TDD · Couverture ≥ 80%</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box decision">
+          <div class="wf-node-icon">👁️</div>
+          <div class="wf-node-label">Code review</div>
+          <div class="wf-node-cmd">/orcl/dev/review-code</div>
+          <div class="wf-node-desc">SOLID · Clean Code</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box end">
+          <div class="wf-node-icon">🔒</div>
+          <div class="wf-node-label">Audit</div>
+          <div class="wf-node-cmd">/orcl/dev/audit-code</div>
+          <div class="wf-node-desc">Sécurité · OWASP · Perf</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="color:var(--text-dim);font-size:.85rem;margin-bottom:1rem;font-style:italic">One-shot — Tout le projet d'un coup</p>
+    <div class="wf-schema">
+      <div class="wf-node">
+        <div class="wf-node-box" style="border-color:rgba(124,58,237,.5);background:rgba(124,58,237,.1)">
+          <div class="wf-node-icon">🚀</div>
+          <div class="wf-node-label">Batch implementation</div>
+          <div class="wf-node-cmd">/orcl/dev/batch-implementation</div>
+          <div class="wf-node-desc">Stack → Archi → Code → Tests → Review en un seul workflow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UX WORKFLOW -->
+  <div class="wf-group">
+    <h3>🎨 UX/UI Design — Double Diamond</h3>
+    <div class="wf-schema">
+      <div class="wf-node">
+        <div class="wf-node-box start">
+          <div class="wf-node-icon">📐</div>
+          <div class="wf-node-label">Standards UX</div>
+          <div class="wf-node-cmd">/orcl/ux/recherche-standard</div>
+          <div class="wf-node-desc">Nielsen · WCAG · ISO 9241</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box">
+          <div class="wf-node-icon">🧩</div>
+          <div class="wf-node-label">Patterns UI</div>
+          <div class="wf-node-cmd">/orcl/ux/recherche-ui</div>
+          <div class="wf-node-desc">Material 3 · Apple HIG</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box">
+          <div class="wf-node-icon">🎨</div>
+          <div class="wf-node-label">Créer UX</div>
+          <div class="wf-node-cmd">/orcl/ux/create-ux</div>
+          <div class="wf-node-desc">Personas · Flows · Wireframes</div>
+        </div>
+      </div>
+      <div class="wf-connector"></div>
+      <div class="wf-node">
+        <div class="wf-node-box end">
+          <div class="wf-node-icon">✅</div>
+          <div class="wf-node-label">Vérifier UX</div>
+          <div class="wf-node-cmd">/orcl/ux/verify-ux</div>
+          <div class="wf-node-desc">Audit heuristique · WCAG AA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMANDS -->
+<section id="commands">
+  <h2 class="section-title">Commandes</h2>
+  <p class="section-sub">Référence complète des commandes pour Claude Code et OpenCode.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Claude Code</th><th>OpenCode</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>/orcl/agents/pm</code></td><td><code>/orcl-pm</code></td><td>Lancer l'agent Product Manager</td></tr>
+        <tr><td><code>/orcl/agents/dev</code></td><td><code>/orcl-dev</code></td><td>Lancer l'agent Developer</td></tr>
+        <tr><td><code>/orcl/agents/ux</code></td><td><code>/orcl-ux</code></td><td>Lancer l'agent UX/UI Specialist</td></tr>
+        <tr><td><code>/orcl/workflow/validate-cdc</code></td><td><code>/orcl-wf-validate-cdc</code></td><td>Valider un cahier des charges</td></tr>
+        <tr><td><code>/orcl/workflow/create-tickets</code></td><td><code>/orcl-wf-create-tickets</code></td><td>Découper le CDC en tickets</td></tr>
+        <tr><td><code>/orcl/workflow/validate-tickets</code></td><td><code>/orcl-wf-validate-tickets</code></td><td>Valider les tickets du backlog</td></tr>
+        <tr><td><code>/orcl/workflow/push-kanban</code></td><td><code>/orcl-wf-push-kanban</code></td><td>Push sur GitHub Projects</td></tr>
+        <tr><td><code>/orcl/github/init-project</code></td><td><code>/orcl-github-init</code></td><td>Créer repo + board Kanban</td></tr>
+        <tr><td><code>/orcl/dev/implement-ticket</code></td><td><code>/orcl-dev-implement</code></td><td>Implémenter un ticket</td></tr>
+        <tr><td><code>/orcl/dev/review-code</code></td><td><code>/orcl-dev-review</code></td><td>Code review structuré</td></tr>
+        <tr><td><code>/orcl/dev/create-tests</code></td><td><code>/orcl-dev-create-tests</code></td><td>Créer les tests</td></tr>
+        <tr><td><code>/orcl/dev/audit-code</code></td><td><code>/orcl-dev-audit-code</code></td><td>Audit qualité/sécurité/perf</td></tr>
+        <tr><td><code>/orcl/dev/recherche-stack</code></td><td><code>/orcl-dev-stack</code></td><td>Best practices framework</td></tr>
+        <tr><td><code>/orcl/dev/recherche-architecture</code></td><td><code>/orcl-dev-archi</code></td><td>Architecture technique</td></tr>
+        <tr><td><code>/orcl/dev/batch-implementation</code></td><td><code>/orcl-dev-batch</code></td><td>Création projet one-shot</td></tr>
+        <tr><td><code>/orcl/ux/recherche-standard</code></td><td><code>/orcl-ux-standards</code></td><td>Standards UX applicables</td></tr>
+        <tr><td><code>/orcl/ux/recherche-ui</code></td><td><code>/orcl-ux-ui</code></td><td>Patterns UI adaptés</td></tr>
+        <tr><td><code>/orcl/ux/create-ux</code></td><td><code>/orcl-ux-create</code></td><td>Créer livrables UX</td></tr>
+        <tr><td><code>/orcl/ux/verify-ux</code></td><td><code>/orcl-ux-verify</code></td><td>Audit UX heuristique</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- COMPAT -->
+<section id="compat">
+  <h2 class="section-title">Compatibilité</h2>
+  <p class="section-sub">ORCL s'installe automatiquement pour les deux environnements.</p>
+
+  <div class="compat">
+    <div class="compat-card">
+      <div class="name">Claude Code</div>
+      <div class="desc">CLI officiel d'Anthropic. Agents, commandes slash et skills installés dans <code style="color:var(--cyan)">.claude/</code></div>
+      <span class="tag">Agents + Commands + Skills + Rules</span>
+    </div>
+    <div class="compat-card">
+      <div class="name">OpenCode</div>
+      <div class="desc">Alternative open-source. Agents et commandes installés dans <code style="color:var(--cyan)">.opencode/</code></div>
+      <span class="tag">Agents + Commands + Instructions</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="links">
+    <a href="https://github.com/jussherima/Agile-AI-Orchestrator">GitHub</a>
+    <a href="https://www.npmjs.com/package/orcl-ai">npm</a>
+    <a href="https://github.com/jussherima/Agile-AI-Orchestrator/blob/main/LICENSE">MIT License</a>
+  </div>
+  <p>ORCL — Agile AI Orchestrator &copy; 2025</p>
+</footer>
+
+<script>
+// Close mobile menu on link click
+document.querySelectorAll('nav ul a').forEach(a=>{
+  a.addEventListener('click',()=>document.querySelector('nav ul').classList.remove('open'))
+})
+</script>
+</body>
+</html>
