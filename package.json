@@ -1,6 +1,6 @@
 {
   "name": "orcl-ai",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Agent IA agentique pour Claude Code — Automatise le pipeline complet de gestion de projet",
   "keywords": ["claude-code", "opencode", "ai-agent", "project-management", "orchestrator", "agile"],
   "author": "jussherima",
