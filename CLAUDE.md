@@ -19,14 +19,10 @@ _orcl/            → Données projet (specs, output, backlogs)
 - Signaler les fautes d'orthographe brièvement
 - Évaluation des prompts mal formulés : "📊 Prompt : X/10 - [raison]"
 
-## Validation des spécifications
+## Passation de session
 
-- Signaler un STOP si : mots vagues sans mesure, questions sans réponse, ambiguïtés, pas de critères d'acceptation, sections TBD
-- Une spec est prête quand : complète, correcte, non ambiguë, cohérente, vérifiable, traçable, priorisée
-- Drapeaux rouges : pas d'écran identifié, rôles non définis, cas limites absents, contraintes non quantifiées
+- `handoff_dir` : `_orcl/handoffs/`
 
-## Qualité des tickets
+## Claude Code Exports
 
-- Titre avec verbe d'action, contexte expliqué, critères d'acceptation testables
-- Priorité assignée, dépendances identifiées, scope ≤ 3-5 jours
-- Critères INVEST : Indépendant, Négociable, Valuable, Estimable, Small, Testable
+- `export_dir` : `.claude/exports/`

@@ -1,0 +1,12 @@
+# Mémoire locale des outils AI (ne pas partager)
+.claude/memory/
+.claude/settings.local.json
+
+# OpenCode local
+.opencode/node_modules/
+.opencode/bun.lock
+.opencode/package.json
+.opencode/.gitignore
+
+# OS
+.DS_Store
