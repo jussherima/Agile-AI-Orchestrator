@@ -1,0 +1,18 @@
+{
+  "current_wave": 1,
+  "total_waves": 4,
+  "max_parallel": 3,
+  "token_budget": 150000,
+  "tokens_used": 0,
+  "tokens_remaining": 150000,
+  "tickets_total": 12,
+  "tickets_done": [],
+  "tickets_in_progress": {},
+  "tickets_blocked": [],
+  "tickets_failed": [],
+  "tickets_pending": ["T-1", "T-2", "T-3", "T-4", "T-5", "T-6", "T-7", "T-8", "T-9", "T-10", "T-11", "T-12"],
+  "wave_history": [],
+  "started_at": "2026-10-13T10:00:00Z",
+  "updated_at": "2026-10-13T10:00:00Z",
+  "estimated_completion": "2026-10-13T11:30:00Z"
+}

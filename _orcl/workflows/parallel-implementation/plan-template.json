@@ -1,0 +1,45 @@
+{
+  "waves": [
+    {
+      "id": 1,
+      "tickets": ["T-1", "T-2"],
+      "parallel": true,
+      "max_parallel": 2,
+      "estimated_tokens": 16000,
+      "level": 0,
+      "description": "Aucune dépendance - Auth + User Profile"
+    },
+    {
+      "id": 2,
+      "tickets": ["T-3", "T-4"],
+      "parallel": true,
+      "max_parallel": 2,
+      "estimated_tokens": 22000,
+      "level": 1,
+      "description": "Dépend de T-1 (auth) - Payment + Dashboard"
+    },
+    {
+      "id": 3,
+      "tickets": ["T-5"],
+      "parallel": false,
+      "max_parallel": 1,
+      "estimated_tokens": 15000,
+      "level": 2,
+      "description": "Dépend de T-3 (payment) - Subscription"
+    },
+    {
+      "id": 4,
+      "tickets": ["T-6", "T-7"],
+      "parallel": true,
+      "max_parallel": 2,
+      "estimated_tokens": 18000,
+      "level": 1,
+      "description": "Dépend de T-1 - Notifications + Settings"
+    }
+  ],
+  "total_estimated_tokens": 71000,
+  "total_tickets": 7,
+  "max_parallel": 2,
+  "critical_path": ["T-1", "T-3", "T-5"],
+  "parallelization_factor": 2.3
+}

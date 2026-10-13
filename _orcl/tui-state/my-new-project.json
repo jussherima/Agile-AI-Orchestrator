@@ -1,0 +1,106 @@
+{
+  "name": "my-new-project",
+  "description": "Project loaded from /home/herimalala/Organization/FORGERO/PROJECT/IA/_orcl/output/backlogs/my-new-project-backlog.md",
+  "createdAt": "2026-10-13T15:37:23.954Z",
+  "updatedAt": "2026-10-13T15:37:23.954Z",
+  "tickets": [
+    {
+      "id": "feature-titre-2542",
+      "title": "Feature: [Titre]",
+      "type": "feature",
+      "priority": "medium",
+      "status": "backlog",
+      "labels": [],
+      "description": "En tant que [rôle], je veux [action], afin de [bénéfice].\n- Étant donné [contexte], Quand [action], Alors [résultat attendu]\n- [Ce qui fait partie du ticket]\n- [Ce qui n'en fait PAS partie]\n- [Dépendance 1]\n---",
+      "acceptanceCriteria": [],
+      "scopeIncluded": [],
+      "scopeExcluded": [],
+      "dependsOn": [],
+      "blocks": [],
+      "createdAt": "2026-10-13T15:37:23.953Z",
+      "updatedAt": "2026-10-13T15:37:23.954Z",
+      "reviewIteration": 0,
+      "maxReviewIterations": 3
+    }
+  ],
+  "kanban": {
+    "columns": [
+      {
+        "id": "backlog",
+        "title": "Backlog",
+        "order": 0
+      },
+      {
+        "id": "ready",
+        "title": "Ready",
+        "order": 1,
+        "wipLimit": 10
+      },
+      {
+        "id": "in-progress",
+        "title": "In Progress",
+        "order": 2,
+        "wipLimit": 5
+      },
+      {
+        "id": "review",
+        "title": "Review",
+        "order": 3,
+        "wipLimit": 3
+      },
+      {
+        "id": "qa",
+        "title": "QA",
+        "order": 4,
+        "wipLimit": 3
+      },
+      {
+        "id": "done",
+        "title": "Done",
+        "order": 5
+      },
+      {
+        "id": "blocked",
+        "title": "Blocked",
+        "order": 6
+      }
+    ],
+    "wipLimits": {
+      "ready": 10,
+      "in-progress": 5,
+      "review": 3,
+      "qa": 3
+    }
+  },
+  "metrics": {
+    "totalTickets": 1,
+    "ticketsByStatus": {
+      "backlog": 1,
+      "ready": 0,
+      "in-progress": 0,
+      "review": 0,
+      "qa": 0,
+      "done": 0,
+      "blocked": 0
+    },
+    "ticketsByType": {
+      "bug": 0,
+      "feature": 1,
+      "technical": 0,
+      "docs": 0
+    },
+    "ticketsByPriority": {
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    },
+    "totalStoryPoints": 0,
+    "completedStoryPoints": 0,
+    "velocity": 0,
+    "leadTime": 0,
+    "cycleTime": 0,
+    "throughput": 0,
+    "blockersCount": 0
+  }
+}

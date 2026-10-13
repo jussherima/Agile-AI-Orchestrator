@@ -1,13 +1,14 @@
 <workflow>
   <metadata>
-    <name>Batch Implementation — Projet en one-shot</name>
+    <name>Batch Implementation — Projet en one-shot (LEGACY)</name>
     <command>/orcl/dev/batch-implementation</command>
     <input>CDC ou description du projet</input>
     <output>Projet complet : repo GitHub + tickets + UX + code implémenté</output>
     <description>
-      Orchestrateur qui enchaîne automatiquement TOUT le pipeline Orchestral :
-      GitHub init → CDC validation → Tickets → UX → Implémentation de chaque ticket.
-      Pas de gates manuelles — tout est automatique sauf si un STOP est déclenché.
+      ⚠️ VERSION LEGACY — Séquentielle, non token-efficient.
+      Utilisez plutôt : `/orcl/dev/parallel` (subagents parallèles, orchestrés).
+      
+      Ancien pipeline : GitHub init → CDC validation → Tickets → UX → Implémentation séquentielle.
     </description>
   </metadata>
 
@@ -20,17 +21,20 @@
     <step file="steps/step-06-stack.md">Rechercher la stack technique + best practices</step>
     <step file="steps/step-07-architecture.md">Définir l'architecture technique</step>
     <step file="steps/step-08-scaffold.md">Scaffolder le projet</step>
-    <step file="steps/step-09-implement.md">Implémenter tous les tickets</step>
+    <step file="steps/step-09-implement.md">Implémenter tous les tickets (SÉQUENTIEL - LENT)</step>
     <step file="steps/step-10-audit.md">Audit final qualité/sécurité/performance</step>
     <step file="steps/step-11-push.md">Push tickets sur GitHub Projects</step>
     <step file="steps/step-12-output.md">Rapport final</step>
   </steps>
 
   <mode>
-    Ce workflow fonctionne en mode BATCH — pas de gates manuelles entre les étapes.
-    L'orchestrateur avance automatiquement sauf si :
-    - Un STOP est déclenché (ambiguïté, donnée manquante)
-    - Une erreur critique est détectée
-    Dans ces cas, il s'arrête, pose la question, et reprend après réponse.
+    MODE LEGACY SÉQUENTIEL — Ne pas utiliser pour nouveaux projets.
+    Utilisez `/orcl/dev/parallel` pour implémentation parallèle subagents.
   </mode>
+
+  <see_also>
+    /orcl/dev/parallel — Implémentation parallèle subagents (RECOMMANDÉ)
+    /orcl/subagent/implement-ticket — Subagent implémentation
+    /orcl/subagent/review-ticket — Subagent review
+  </see_also>
 </workflow>

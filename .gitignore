@@ -10,3 +10,5 @@
 
 # OS
 .DS_Store
+tui/node_modules
+tui/dist
